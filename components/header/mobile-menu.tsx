@@ -3,14 +3,11 @@ import {
     Drawer,
     DrawerClose,
     DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import twitterIcon from "../../public/images/tailwind.svg";
+import Link from 'next/link';
+import DarkModeSwitch from '../dark-mode-switch';
 
 export default function MobileMenu() {
     return (
@@ -28,11 +25,14 @@ export default function MobileMenu() {
                 </span>
             </div>
             <Drawer direction="left">
-                <DrawerTrigger>
-                    <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                    </svg>
-                </DrawerTrigger>
+                <div className="flex items-center gap-2">
+                    <DarkModeSwitch />
+                    <DrawerTrigger>
+                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                        </svg>
+                    </DrawerTrigger>
+                </div>
                 <DrawerContent className="rounded-none h-full w-8/12 md:w-5/12" showNotch={false}>
                     <div className='flex justify-between w-full p-4'>
                         <div className='flex gap-2'>
@@ -52,6 +52,17 @@ export default function MobileMenu() {
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                             </svg>
                         </DrawerClose>
+                    </div>
+                    <div className='flex flex-col px-4 pt-8'>
+                        <Link href="/" className="font-semibold border-b py-3">
+                            Products
+                        </Link>
+                        <Link href="/" className="font-semibold border-b py-3">
+                            Features
+                        </Link>
+                        <Link href="/" className="font-semibold border-b py-3">
+                            Marketplace
+                        </Link>
                     </div>
                 </DrawerContent>
             </Drawer>

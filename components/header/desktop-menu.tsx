@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import twitterIcon from "../../public/images/tailwind.svg";
 import Link from 'next/link';
+import DarkModeSwitch from '../dark-mode-switch';
 
 export default function DesktopMenu() {
     return (
@@ -20,18 +21,21 @@ export default function DesktopMenu() {
                         </span>
                     </div>
                 </Link>
-                <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">
+                <Link href="/" className="text-sm font-semibold">
                     Products
                 </Link>
-                <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">
+                <Link href="/" className="text-sm font-semibold">
                     Features
                 </Link>
-                <Link href="/" className="text-sm font-semibold leading-6 text-gray-900">
+                <Link href="/" className="text-sm font-semibold">
                     Marketplace
                 </Link>
             </div>
-            <div className="hidden lg:block">
-                <a href="#" className="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
+            <div className="flex items-center gap-2">
+                <DarkModeSwitch />
+                <Link href="/" className="text-sm font-semibold">
+                    Log in <span aria-hidden="true">&rarr;</span>
+                </Link>
             </div>
         </nav>
     );
