@@ -6,7 +6,7 @@ import DarkMode from './dark-mode';
 export default function DesktopMenu() {
     return (
         <nav className='hidden lg:flex mx-auto max-w-7xl items-center justify-between p-6 lg:px-8'>
-            <div className="flex lg:space-x-4">
+            <div className="flex items-center lg:space-x-4">
                 <Link href="/">
                     <div className='flex gap-2'>
                         <Image
