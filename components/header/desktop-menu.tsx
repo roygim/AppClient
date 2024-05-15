@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import twitterIcon from "../../public/images/tailwind.svg";
 import Link from 'next/link';
-import DarkModeSwitch from '../dark-mode-switch';
+import DarkMode from './dark-mode';
 
 export default function DesktopMenu() {
     return (
@@ -32,7 +32,7 @@ export default function DesktopMenu() {
                 </Link>
             </div>
             <div className="flex items-center gap-2">
-                <DarkModeSwitch />
+                <DarkMode />
                 <Link href="/" className="text-sm font-semibold">
                     Log in <span aria-hidden="true">&rarr;</span>
                 </Link>

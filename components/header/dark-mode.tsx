@@ -1,12 +1,19 @@
 'use client'
 
 import { useTheme } from 'next-themes';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdDarkMode, MdLightMode } from 'react-icons/md';
 
-function DarkModeSwitch() {
+function DarkMode() {
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme, systemTheme } = useTheme()
   const currentTheme = theme === "system" ? systemTheme : theme;
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if(!mounted) return null
 
   if (currentTheme === "dark") {
     return (
@@ -27,4 +34,4 @@ function DarkModeSwitch() {
   }
 }
 
-export default DarkModeSwitch
+export default DarkMode

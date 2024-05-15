@@ -7,7 +7,8 @@ import {
 } from "@/components/ui/drawer"
 import twitterIcon from "../../public/images/tailwind.svg";
 import Link from 'next/link';
-import DarkModeSwitch from '../dark-mode-switch';
+import DarkModeMobile from './dark-mode-mobile';
+import { Switch } from '../ui/switch';
 
 export default function MobileMenu() {
     return (
@@ -26,7 +27,11 @@ export default function MobileMenu() {
             </div>
             <Drawer direction="left">
                 <div className="flex items-center gap-2">
-                    <DarkModeSwitch />
+                    <DarkModeMobile />
+                    {/* <Switch
+                        className='border-amber-500 p-[2px]  data-[state=checked]:bg-white data-[state=unchecked]:bg-white'
+                        thumbClass='bg-amber-500 h-4 w-4'
+                    /> */}
                     <DrawerTrigger>
                         <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
