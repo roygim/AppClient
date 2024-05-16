@@ -18,7 +18,6 @@ function DarkModeMobile() {
   if (!mounted) return null
 
   const toggleMode = () => {
-    console.log('toggleMode' + isChecked);
     if (isChecked) {
       setTheme('light')
       setChecked(false)
