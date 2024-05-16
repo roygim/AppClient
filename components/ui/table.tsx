@@ -2,11 +2,15 @@ import * as React from "react"
 
 import { cn } from "@/lib/utils"
 
+interface CustomTableHTMLAttributes extends React.HTMLAttributes<HTMLTableElement> {
+  divClassname: string;
+}
+
 const Table = React.forwardRef<
   HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, containerClassname, ...props }, ref) => (
-  <div className={cn("relative w-full", containerClassname)}>
+  CustomTableHTMLAttributes
+>(({ className, divClassname, ...props }, ref) => (
+  <div className={cn("relative w-full", divClassname)}>
     <table
       ref={ref}
       className={cn("w-full caption-bottom text-sm", className)}

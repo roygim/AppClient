@@ -34,10 +34,14 @@ const DrawerOverlay = React.forwardRef<
 ))
 DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
 
+interface CustomComponentPropsWithoutRef extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
+  showNotch: boolean;
+}
+
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
+  CustomComponentPropsWithoutRef
+>(({ className, children, showNotch, ...props }, ref) => (
   <DrawerPortal>
     <DrawerOverlay />
     <DrawerPrimitive.Content
@@ -49,8 +53,8 @@ const DrawerContent = React.forwardRef<
       {...props}
     >
       {
-        (typeof props.showNotch !== 'undefined') ?
-          props.showNotch && <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
+        (typeof showNotch !== 'undefined') ?
+          showNotch && <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
           :
           <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
       }

@@ -7,7 +7,6 @@ import { useQueryClient } from 'react-query';
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
@@ -41,7 +40,7 @@ function UsersList() {
 
     return (
         <div className='flex flex-col items-center'>
-            <Table containerClassname='h-fit max-h-[486px] overflow-y-auto relative'>
+            <Table divClassname='h-fit max-h-[486px] overflow-y-auto relative'>
                 <TableHeader>
                     <TableRow>
                         <TableHead>ID</TableHead>
