@@ -13,11 +13,12 @@ function DarkMode() {
     setMounted(true)
   }, [])
 
-  if(!mounted) return null
+  if (!mounted) return null
 
   if (currentTheme === "dark") {
     return (
-      <MdLightMode 
+      <MdLightMode
+        role='button'
         className='text-xl cursor-pointer hover:text-amber-500'
         onClick={() => setTheme('light')}
       />
@@ -26,7 +27,8 @@ function DarkMode() {
 
   else {
     return (
-      <MdDarkMode 
+      <MdDarkMode
+        role='button'
         className='text-xl cursor-pointer hover:text-amber-500'
         onClick={() => setTheme('dark')}
       />

@@ -3,7 +3,7 @@ import { getAllUsers } from "../services/users.service";
 
 const useUsers = () => {
     const getUsers = () => {
-        return useQuery("users", getAllUsers)
+        return useQuery("users", getAllUsers, { refetchOnWindowFocus: false })
     }
 
     return {

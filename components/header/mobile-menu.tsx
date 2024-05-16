@@ -6,10 +6,10 @@ import {
     DrawerTrigger,
 } from "@/components/ui/drawer"
 import twitterIcon from "../../public/images/tailwind.svg";
-import hamburgerIcon from "../../public/images/hamburger.svg";
 import closeIcon from "../../public/images/close.svg";
 import Link from 'next/link';
 import DarkModeMobile from './dark-mode-mobile';
+import { MdMenu } from "react-icons/md";
 
 export default function MobileMenu() {
     return (
@@ -29,11 +29,7 @@ export default function MobileMenu() {
             <Drawer direction="left">
                 <div className="flex items-center gap-2">
                     <DrawerTrigger>
-                        <Image
-                            priority
-                            src={hamburgerIcon}
-                            alt="Follow us on Twitter"
-                        />
+                        <MdMenu size={24} />
                     </DrawerTrigger>
                 </div>
                 <DrawerContent className="rounded-none h-full w-8/12 md:w-5/12" showNotch={false}>
@@ -59,13 +55,13 @@ export default function MobileMenu() {
                         </DrawerClose>
                     </div>
                     <div className='flex flex-col px-4 pt-8'>
-                        <Link href="/" className="font-semibold border-b py-3">
+                        <Link href="/" className="font-semibold border-b py-3 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
                             Products
                         </Link>
-                        <Link href="/" className="font-semibold border-b py-3">
+                        <Link href="/" className="font-semibold border-b py-3 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
                             Features
                         </Link>
-                        <Link href="/" className="font-semibold border-b py-3">
+                        <Link href="/" className="font-semibold border-b py-3 dark:text-gray-400 dark:hover:text-white transition-colors duration-200">
                             Marketplace
                         </Link>
                     </div>

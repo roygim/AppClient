@@ -15,7 +15,7 @@ function DarkModeMobile() {
     setMounted(true)
   }, [])
 
-  if(!mounted) return null
+  if (!mounted) return null
 
   const toggleMode = () => {
     console.log('toggleMode' + isChecked);
@@ -37,10 +37,12 @@ function DarkModeMobile() {
         thumbClass='bg-amber-500 h-4 w-4'
       />
       <MdOutlineLightMode
+        role='button'
         className='absolute top-[4px] left-[4px] text-amber-500 z-0'
         onClick={toggleMode}
       />
       <MdOutlineDarkMode
+        role='button'
         className='absolute top-[4px] right-[4px] text-amber-500 z-0'
         onClick={toggleMode}
       />

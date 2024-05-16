@@ -18,9 +18,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Providers>
-          <div className="dark:bg-blackish bg-cases bg-no-repeat bg-gradient-to-b from-orange-500/5 dark:from-orange-800/10">
+          <div className="dark:bg-gray-900 bg-cases bg-no-repeat bg-gradient-to-b from-orange-500/5 dark:from-orange-800/10 dark:text-gray-400">
             <MyHeader />
-            <main className="min-h-screen mx-auto flex max-w-7xl lg:px-8 pt-8">
+            <main className="min-h-screen mx-auto max-w-7xl px-5 lg:px-8 pt-8">
               {children}
             </main>
             <Footer />

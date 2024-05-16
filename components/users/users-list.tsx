@@ -2,23 +2,72 @@
 
 import React from 'react'
 import useUsers from '@/lib/hooks/useUsers';
+import { LuRefreshCcw } from "react-icons/lu";
+import { useQueryClient } from 'react-query';
+import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+} from "@/components/ui/table"
+import Spinner from '../spinner';
 
 function UsersList() {
+    const queryClient = useQueryClient();
     const { getUsers } = useUsers()
 
-    const { data, isLoading } = getUsers()
+    const { data: usersList, isLoading } = getUsers()
+
+    const handleRefreshUsers = () => {
+        queryClient.invalidateQueries('users')
+    }
 
     if (isLoading) {
         return (
+            <Spinner marginTop={200} />
+        )
+    }
+
+    if (!usersList || usersList.length == 0) {
+        return (
             <div>
-                Loading...
+                No Users
             </div>
         )
     }
 
     return (
-        <div>
-            UsersList
+        <div className='flex flex-col items-center'>
+            <Table containerClassname='h-fit max-h-[486px] overflow-y-auto relative'>
+                <TableHeader>
+                    <TableRow>
+                        <TableHead>ID</TableHead>
+                        <TableHead>First Name</TableHead>
+                        <TableHead>Last Name</TableHead>
+                        <TableHead>Email</TableHead>
+                    </TableRow>
+                </TableHeader>
+                <TableBody>
+                    {
+                        usersList.map((row) => (
+                            <TableRow key={row.id}>
+                                <TableCell>{row.id}</TableCell>
+                                <TableCell>{row.firstname}</TableCell>
+                                <TableCell>{row.lastname}</TableCell>
+                                <TableCell>{row.email}</TableCell>
+                            </TableRow>
+                        ))
+                    }
+                </TableBody>
+            </Table>
+            <LuRefreshCcw
+                role='button'
+                className='text-xl cursor-pointer hover:text-amber-500 mt-5'
+                onClick={handleRefreshUsers}
+            />
         </div>
     )
 }
