@@ -6,7 +6,7 @@ import DesktopMenu from './desktop-menu';
 
 function MyHeader() {
     return (
-        <header className="bg-white dark:bg-black">
+        <header>
             <DesktopMenu />
             <MobileMenu />
         </header>
