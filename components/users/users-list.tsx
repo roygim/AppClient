@@ -8,12 +8,12 @@ function UsersList() {
 
     const { data, isLoading } = getUsers()
 
-    if(isLoading) {
+    if (isLoading) {
         return (
             <div>
                 Loading...
             </div>
-        )    
+        )
     }
 
     return (
