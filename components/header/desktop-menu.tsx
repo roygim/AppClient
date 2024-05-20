@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import twitterIcon from "../../public/images/tailwind.svg";
 import Link from 'next/link';
-import DarkMode from './dark-mode';
+import DarkMode from '../dark-mode/dark-mode';
 
 export default function DesktopMenu() {
     return (

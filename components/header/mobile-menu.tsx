@@ -8,7 +8,7 @@ import {
 import twitterIcon from "../../public/images/tailwind.svg";
 import closeIcon from "../../public/images/close.svg";
 import Link from 'next/link';
-import DarkModeMobile from './dark-mode-mobile';
+import DarkModeMobile from '../dark-mode/dark-mode-mobile';
 import { MdMenu } from "react-icons/md";
 
 export default function MobileMenu() {
