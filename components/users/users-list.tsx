@@ -13,8 +13,11 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import Spinner from '../spinner';
+import { Button } from "@/components/ui/button"
+import { useRouter } from 'next/navigation'
 
 function UsersList() {
+    const router = useRouter()
     const queryClient = useQueryClient();
     const { getUsers } = useUsers()
 
@@ -22,6 +25,14 @@ function UsersList() {
 
     const handleRefreshUsers = () => {
         queryClient.invalidateQueries('users')
+    }
+
+    const handleUserClick = (email: string) => {
+        try {
+            router.push(`/login?email=${email}`)
+        } catch (error) {
+            alert('אירעה שגיאה')
+        }
     }
 
     if (isLoading) {
@@ -53,7 +64,17 @@ function UsersList() {
                     {
                         usersList.map((row) => (
                             <TableRow key={row.id}>
-                                <TableCell>{row.id}</TableCell>
+                                <TableCell>
+                                    <Button
+                                        variant="link"
+                                        className='text-link dark:text-primary underline pl-1'
+                                        onClick={() => {
+                                            handleUserClick(row.email)
+                                        }}
+                                    >
+                                        {row.id}
+                                    </Button>
+                                </TableCell>
                                 <TableCell>{row.firstname}</TableCell>
                                 <TableCell>{row.lastname}</TableCell>
                                 <TableCell>{row.email}</TableCell>

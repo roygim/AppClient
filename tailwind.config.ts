@@ -24,6 +24,7 @@ const config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        link: "#1976d2",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -54,7 +55,8 @@ const config = {
         },
         darkMode: {
           light: 'rgb(255 255 255 / var(--tw-bg-opacity))',
-          dark: 'rgb(13 13 17/var(--tw-bg-opacity))'
+          dark: 'rgb(13 13 17/var(--tw-bg-opacity))',
+          card: 'rgb(31 41 55 / var(--tw-bg-opacity))'
         }
       },
       borderRadius: {
