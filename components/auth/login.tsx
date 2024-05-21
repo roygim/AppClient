@@ -12,17 +12,25 @@ import { Input } from '../ui/input'
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from 'next/navigation'
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
+import useUsers from '@/lib/hooks/useUsers'
+import Spinner from '../spinner'
 
 interface LoginInputs {
     email: string
     password: string
 }
 
-
 function Login() {
     const searchParams = useSearchParams()
-
     const currentEmail = searchParams.get('email') ?? ''
+    const { loginUserMutation } = useUsers()
+
+    const {
+        mutateAsync: loginUserAsync,
+        isLoading: isLoginLoading,
+        isError: isLoginError,
+        error: loginError,
+        isSuccess: isLoginSuccess } = loginUserMutation()
 
     const {
         handleSubmit,
@@ -36,8 +44,36 @@ function Login() {
         },
     })
 
-    const onSubmit: SubmitHandler<LoginInputs> = (data) => {
-        console.log(data)
+    const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+        const { email, password } = data
+
+        try {
+            const res = await loginUserAsync({ email, password })
+            console.log('res');
+            console.log(res);
+            // if (res.code === 0) {
+            //     dispatch(sliceLogin(res.data.user))
+            //     navigate('/user')
+            // }
+        } catch (error: any) {
+            console.log(loginError)
+            // if (error && error.response && error.response.data) {
+            //     if (error.response.data === 'user not found') {
+            //         alert('יוזר לא נמצא')
+            //     }
+            //     else if (error.response.data === 'invalid password') {
+            //         alert('סיסמה שגויה')
+            //     }
+            // }
+        }
+    }
+
+    const getError = () => {
+        const currentError = loginError as any
+        if (currentError && currentError.response && currentError.response.data) {
+            return currentError.response.data
+        }
+        return 'error'
     }
 
     return (
@@ -63,7 +99,7 @@ function Login() {
                             render={({ field }) =>
                                 <div className='mb-[18px]'>
                                     <Input type="email" placeholder="Email" {...field} className='focus-visible:ring-1' />
-                                    {errors.email && <span className="inline-block pt-[4px] pl-[8px] text-sm text-red-700">{errors.email.message}</span>}
+                                    {errors.email && <span className="inline-block pt-[4px] pl-[8px] text-sm text-alert-error">{errors.email.message}</span>}
                                 </div>
                             }
                         />
@@ -80,19 +116,32 @@ function Login() {
                             render={({ field }) =>
                                 <div className='mb-[18px]'>
                                     <Input type="password" placeholder="Password" {...field} />
-                                    {errors.password && <span className="inline-block pt-[4px] pl-[8px] text-sm text-red-700">{errors.password.message}</span>}
+                                    {errors.password && <span className="inline-block pt-[4px] pl-[8px] text-sm text-alert-error">{errors.password.message}</span>}
                                 </div>
                             }
                         />
                     </CardContent>
                     <CardFooter className='flex justify-center'>
-                        <Button
-                            type="submit"
-                            variant="link"
-                            className='text-link dark:text-primary underline pl-1'
-                        >
-                            Login
-                        </Button>
+                        {
+                            isLoginLoading ?
+                                <Spinner />
+                                :
+                                <div className='flex flex-col gap-1'>
+                                    <Button
+                                        type="submit"
+                                        variant="link"
+                                        className='text-link dark:text-primary underline pl-1'
+                                    >
+                                        Login
+                                    </Button>
+                                    {
+                                        isLoginError &&
+                                        <span className='text-sm text-alert-error first-letter:uppercase'>
+                                            {getError()}
+                                        </span>
+                                    }
+                                </div>
+                        }
                     </CardFooter>
                 </Card>
             </form>

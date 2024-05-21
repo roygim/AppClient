@@ -1,13 +1,18 @@
-import { useQuery } from "react-query";
-import { getAllUsers } from "../services/users.service";
+import { useMutation, useQuery } from "react-query";
+import { getAllUsers, loginUser as us_loginUser } from "../services/users.service";
 
 const useUsers = () => {
-    const getUsers = () => {
+    const getUsersQuery = () => {
         return useQuery("users", getAllUsers, { refetchOnWindowFocus: false })
     }
 
+    const loginUserMutation = () => {
+        return useMutation(us_loginUser)
+    }
+
     return {
-        getUsers
+        getUsersQuery,
+        loginUserMutation
     }
 }
 

@@ -19,9 +19,8 @@ import { useRouter } from 'next/navigation'
 function UsersList() {
     const router = useRouter()
     const queryClient = useQueryClient();
-    const { getUsers } = useUsers()
-
-    const { data: usersList, isLoading } = getUsers()
+    const { getUsersQuery } = useUsers()
+    const { data: usersList, isLoading } = getUsersQuery()
 
     const handleRefreshUsers = () => {
         queryClient.invalidateQueries('users')

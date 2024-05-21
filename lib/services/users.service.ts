@@ -14,3 +14,24 @@ export const getAllUsers = async (): Promise<User[]> => {
         throw err
     }
 }
+
+export const loginUser = async ({ email, password }: { email: string, password: string }) => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/login`
+
+        const data = {
+            email: email,
+            password: password
+        }
+
+        const response = await axios.post(url, data, { withCredentials: true })
+
+        if (response && response.data && response.data.success) {
+            return response.data.data;
+        }            
+        else
+            throw new Error('error')
+    } catch (error: any) {
+        throw error
+    }
+}
