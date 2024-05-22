@@ -5,7 +5,7 @@ function UserNotFound() {
     return (
         <div className='min-h-screen flex flex-col items-center justify-center'>
             <div className='flex flex-col items-center relative top-[-130px]'>
-                <div className='text-xl'>
+                <div className='text-xl mb-2'>
                     User not found
                 </div>
                 <div>
