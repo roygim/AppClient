@@ -1,9 +1,9 @@
 import axios from "axios";
-import { User } from "../types";
+import { ResponseObj, User } from "../types";
 
 export const getAllUsers = async (): Promise<User[]> => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/users`
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users`
         const response = await axios.get(url, { withCredentials: true });
 
         if (response && response.data && response.data.success)
@@ -17,7 +17,7 @@ export const getAllUsers = async (): Promise<User[]> => {
 
 export const loginUser = async ({ email, password }: { email: string, password: string }) => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/api/login`
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/login`
 
         const data = {
             email: email,
@@ -32,6 +32,22 @@ export const loginUser = async ({ email, password }: { email: string, password: 
         else
             throw new Error('error')
     } catch (error: any) {
+        throw error
+    }
+}
+
+export const logoutUser = async () => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/logout`
+
+        const response = await axios.delete(url, { withCredentials: true });
+
+        if (response && response.data) {
+            return response.data;
+        }            
+        else
+            throw new Error('error')
+    } catch (error) {
         throw error
     }
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import {
     Card,
     CardContent,
@@ -27,16 +27,15 @@ function Login() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const currentEmail = searchParams.get('email') ?? ''
-    const { saveUser } = useContext(UserContext) as UserContextValue
-
     const { loginUserMutation } = useUsers()
+    const { saveUser } = useContext(UserContext) as UserContextValue
+    const [loginProcess, setLoginProcess] = useState(false)
 
     const {
         mutateAsync: loginUserAsync,
         isLoading: isLoginLoading,
         isError: isLoginError,
-        error: loginError,
-        isSuccess: isLoginSuccess } = loginUserMutation()
+        error: loginError } = loginUserMutation()
 
     const {
         handleSubmit,
@@ -50,16 +49,20 @@ function Login() {
         },
     })
 
-    const onSubmit: SubmitHandler<LoginInputs> = async (data) => {
+    const loginUser: SubmitHandler<LoginInputs> = async (data) => {
         const { email, password } = data
 
         try {
+            setLoginProcess(true)
             const res = await loginUserAsync({ email, password })
-            if(res && res.user) {
+            if (res && res.user) {
                 saveUser(res.user)
                 router.push(`/user`)
+            } else {
+                setLoginProcess(false)
             }
         } catch (error: any) {
+            setLoginProcess(false)
             console.log(loginError)
         }
     }
@@ -74,14 +77,14 @@ function Login() {
 
     return (
         <div className="sm:flex sm:justify-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(loginUser)}>
                 <Card className='dark:bg-darkMode-card sm:w-[500px]'>
                     <CardHeader>
                         <CardTitle>
                             Sign In
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className='pb-[12px]'>
+                    <CardContent className='pb-[4px]'>
                         <Controller
                             name="email"
                             control={control}
@@ -122,6 +125,7 @@ function Login() {
                             isLoginLoading ?
                                 <Spinner />
                                 :
+                                !loginProcess &&
                                 <div className='flex flex-col gap-1'>
                                     <Button
                                         type="submit"

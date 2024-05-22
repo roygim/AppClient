@@ -1,12 +1,15 @@
 'use client'
 
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import Spinner from '../spinner'
 import { Input } from '../ui/input'
+import { Button } from '../ui/button'
+import useUsers from '@/lib/hooks/useUsers'
+import { useRouter } from 'next/navigation'
 
 interface UpdateInputs {
     firstname: string
@@ -15,7 +18,15 @@ interface UpdateInputs {
 }
 
 function UserDetails() {
-    const { user } = useContext(UserContext) as UserContextValue
+    const router = useRouter()
+    const { user, isUserLogin, removeUser } = useContext(UserContext) as UserContextValue
+    const { logoutUserMutation } = useUsers()
+    
+    const {
+        mutateAsync: logoutUserAsync,
+        isLoading: isLogoutLoading,
+        isError: isLogoutError,
+        error: logoutError } = logoutUserMutation()
 
     const {
         handleSubmit,
@@ -30,7 +41,12 @@ function UserDetails() {
         },
     })
 
-    const onSubmit: SubmitHandler<UpdateInputs> = async (data) => {
+    useEffect(() => {
+        console.log('isUserLogin')
+        console.log(isUserLogin)
+    }, [isUserLogin])
+
+    const updateUser: SubmitHandler<UpdateInputs> = async (data) => {
         const { firstname, lastname, email } = data
 
         try {
@@ -44,16 +60,29 @@ function UserDetails() {
         }
     }
 
+    const logoutUser = async () => {
+        try {
+            const res = await logoutUserAsync()
+            
+            if (res && res.success) {
+                removeUser()
+                router.push(`/`)
+            }
+        } catch (error) {
+            alert('אירעה שגיאה')
+        }
+    }
+
     return (
         <div className="sm:flex sm:justify-center">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(updateUser)}>
                 <Card className='dark:bg-darkMode-card sm:w-[500px]'>
                     <CardHeader>
                         <CardTitle>
                             User Details:
                         </CardTitle>
                     </CardHeader>
-                    <CardContent className='pb-[12px]'>
+                    <CardContent className='pb-[4px]'>
                         <Controller
                             name="firstname"
                             control={control}
@@ -98,28 +127,24 @@ function UserDetails() {
                             }
                         />
                     </CardContent>
-                    {/* <CardFooter className='flex justify-center'>
-                        {
-                            isLoginLoading ?
-                                <Spinner />
-                                :
-                                <div className='flex flex-col gap-1'>
-                                    <Button
-                                        type="submit"
-                                        variant="link"
-                                        className='text-link dark:text-primary underline pl-1'
-                                    >
-                                        Login
-                                    </Button>
-                                    {
-                                        isLoginError &&
-                                        <span className='text-sm text-alert-error first-letter:uppercase'>
-                                            {getError()}
-                                        </span>
-                                    }
-                                </div>
-                        }
-                    </CardFooter> */}
+                    <CardFooter>
+                        <div className='flex justify-between px-1 w-full'>
+                            <Button
+                                type="submit"
+                                variant="link"
+                                className='text-link dark:text-primary underline pl-1'
+                            >
+                                Update
+                            </Button>
+                            <Button
+                                variant="link"
+                                className='text-link dark:text-primary underline pl-1'
+                                onClick={() => logoutUser()}
+                            >
+                                Logout
+                            </Button>
+                        </div>
+                    </CardFooter>
                 </Card>
             </form>
         </div>
