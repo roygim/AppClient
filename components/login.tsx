@@ -8,12 +8,12 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Input } from '../ui/input'
+import { Input } from './ui/input'
 import { Button } from "@/components/ui/button"
 import { useSearchParams } from 'next/navigation'
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 import useUsers from '@/lib/hooks/useUsers'
-import Spinner from '../spinner'
+import Spinner from './spinner'
 import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
 import { useRouter } from 'next/navigation'

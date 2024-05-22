@@ -10,6 +10,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
+import { User } from '@/lib/types'
 
 interface UpdateInputs {
     firstname: string
@@ -17,34 +18,26 @@ interface UpdateInputs {
     email: string
 }
 
-function UserDetails() {
+function UserDetails({ currentUser }: { currentUser: User | null }) {
     const router = useRouter()
-    const { user, isUserLogin, removeUser } = useContext(UserContext) as UserContextValue
+    const { removeUser } = useContext(UserContext) as UserContextValue
     const { logoutUserMutation } = useUsers()
-    
-    const {
-        mutateAsync: logoutUserAsync,
-        isLoading: isLogoutLoading,
-        isError: isLogoutError,
-        error: logoutError } = logoutUserMutation()
+
+    const { 
+        mutateAsync: logoutUserAsync 
+    } = logoutUserMutation()
 
     const {
         handleSubmit,
         control,
-        reset,
         formState: { errors }
     } = useForm<UpdateInputs>({
         defaultValues: {
-            firstname: user?.firstname ?? '',
-            lastname: user?.lastname ?? '',
-            email: user?.email ?? '',
+            firstname: currentUser?.firstname ?? '',
+            lastname: currentUser?.lastname ?? '',
+            email: currentUser?.email ?? '',
         },
     })
-
-    useEffect(() => {
-        console.log('isUserLogin')
-        console.log(isUserLogin)
-    }, [isUserLogin])
 
     const updateUser: SubmitHandler<UpdateInputs> = async (data) => {
         const { firstname, lastname, email } = data
@@ -63,7 +56,7 @@ function UserDetails() {
     const logoutUser = async () => {
         try {
             const res = await logoutUserAsync()
-            
+
             if (res && res.success) {
                 removeUser()
                 router.push(`/`)
