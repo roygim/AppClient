@@ -17,5 +17,5 @@ export interface User {
     firstname: string | null;
     lastname: string | null;
     email: string;
-    password: string;
+    // password: string;
 }

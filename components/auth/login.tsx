@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useContext } from 'react'
 import {
     Card,
     CardContent,
@@ -14,6 +14,8 @@ import { useSearchParams } from 'next/navigation'
 import { useForm, Controller, SubmitHandler } from "react-hook-form"
 import useUsers from '@/lib/hooks/useUsers'
 import Spinner from '../spinner'
+import { UserContext } from '@/lib/state/user/user.context'
+import { UserContextValue } from '@/lib/state/user/user.type'
 
 interface LoginInputs {
     email: string
@@ -23,6 +25,8 @@ interface LoginInputs {
 function Login() {
     const searchParams = useSearchParams()
     const currentEmail = searchParams.get('email') ?? ''
+    const { saveUser } = useContext(UserContext) as UserContextValue
+
     const { loginUserMutation } = useUsers()
 
     const {
@@ -49,8 +53,9 @@ function Login() {
 
         try {
             const res = await loginUserAsync({ email, password })
-            console.log('res');
-            console.log(res);
+            if(res && res.user) {
+                saveUser(res.user)
+            }
             // if (res.code === 0) {
             //     dispatch(sliceLogin(res.data.user))
             //     navigate('/user')
