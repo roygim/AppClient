@@ -16,6 +16,7 @@ import useUsers from '@/lib/hooks/useUsers'
 import Spinner from '../spinner'
 import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
+import { useRouter } from 'next/navigation'
 
 interface LoginInputs {
     email: string
@@ -23,6 +24,7 @@ interface LoginInputs {
 }
 
 function Login() {
+    const router = useRouter()
     const searchParams = useSearchParams()
     const currentEmail = searchParams.get('email') ?? ''
     const { saveUser } = useContext(UserContext) as UserContextValue
@@ -55,6 +57,7 @@ function Login() {
             const res = await loginUserAsync({ email, password })
             if(res && res.user) {
                 saveUser(res.user)
+                router.push(`/user`)
             }
             // if (res.code === 0) {
             //     dispatch(sliceLogin(res.data.user))

@@ -33,7 +33,7 @@ export default function DesktopMenu() {
             </div>
             <div className="flex items-center gap-2">
                 <DarkMode />
-                <Link href="/" className="text-sm font-semibold">
+                <Link href="/login" className="text-sm font-semibold">
                     Log in <span aria-hidden="true">&rarr;</span>
                 </Link>
             </div>

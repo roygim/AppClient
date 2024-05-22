@@ -1,4 +1,4 @@
-import Login from '@/components/auth/login'
+import Login from '@/components/authorization/login'
 import React from 'react'
 
 function page() {
