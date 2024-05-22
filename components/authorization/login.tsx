@@ -59,20 +59,8 @@ function Login() {
                 saveUser(res.user)
                 router.push(`/user`)
             }
-            // if (res.code === 0) {
-            //     dispatch(sliceLogin(res.data.user))
-            //     navigate('/user')
-            // }
         } catch (error: any) {
             console.log(loginError)
-            // if (error && error.response && error.response.data) {
-            //     if (error.response.data === 'user not found') {
-            //         alert('יוזר לא נמצא')
-            //     }
-            //     else if (error.response.data === 'invalid password') {
-            //         alert('סיסמה שגויה')
-            //     }
-            // }
         }
     }
 
@@ -85,9 +73,9 @@ function Login() {
     }
 
     return (
-        <div className="flex justify-center">
+        <div className="sm:flex sm:justify-center">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Card className='w-[500px] dark:bg-darkMode-card'>
+                <Card className='dark:bg-darkMode-card sm:w-[500px]'>
                     <CardHeader>
                         <CardTitle>
                             Sign In

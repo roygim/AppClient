@@ -14,18 +14,20 @@ import { MdMenu } from "react-icons/md";
 export default function MobileMenu() {
     return (
         <nav className='lg:hidden flex justify-between w-full px-5 py-6'>
-            <div className='flex gap-2'>
-                <Image
-                    priority
-                    src={twitterIcon}
-                    alt="Follow us on Twitter"
-                    height={32}
-                    width={32}
-                />
-                <span className='font-bold'>
-                    App Client
-                </span>
-            </div>
+            <Link href="/">
+                <div className='flex gap-2'>
+                    <Image
+                        priority
+                        src={twitterIcon}
+                        alt="Follow us on Twitter"
+                        height={32}
+                        width={32}
+                    />
+                    <span className='font-bold'>
+                        App Client
+                    </span>
+                </div>
+            </Link>
             <Drawer direction="left">
                 <div className="flex items-center gap-2">
                     <DrawerTrigger>
@@ -34,18 +36,20 @@ export default function MobileMenu() {
                 </div>
                 <DrawerContent className="rounded-none h-full w-8/12 md:w-5/12" showNotch={false}>
                     <div className='flex justify-between w-full p-4'>
-                        <div className='flex gap-2'>
-                            <Image
-                                priority
-                                src={twitterIcon}
-                                alt="Follow us on Twitter"
-                                height={32}
-                                width={32}
-                            />
-                            <span className='font-bold'>
-                                App Client
-                            </span>
-                        </div>
+                        <Link href="/">
+                            <div className='flex gap-2'>
+                                <Image
+                                    priority
+                                    src={twitterIcon}
+                                    alt="Follow us on Twitter"
+                                    height={32}
+                                    width={32}
+                                />
+                                <span className='font-bold'>
+                                    App Client
+                                </span>
+                            </div>
+                        </Link>
                         <DrawerClose>
                             <Image
                                 priority
