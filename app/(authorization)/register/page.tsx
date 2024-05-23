@@ -1,8 +1,11 @@
 import React from 'react'
+import Register from '@/components/register'
 
 function page() {
   return (
-    <div>register</div>
+    <div>
+      <Register />
+    </div>
   )
 }
 

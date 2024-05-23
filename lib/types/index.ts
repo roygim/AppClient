@@ -20,6 +20,12 @@ export interface User {
     // password: string;
 }
 
+export interface AddUser {
+    firstname?: string;
+    lastname?: string;
+    email: string;
+}
+
 export interface UpdateUser {
     firstname?: string;
     lastname?: string;

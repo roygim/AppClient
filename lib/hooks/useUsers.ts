@@ -1,9 +1,13 @@
 import { useMutation, useQuery } from "react-query";
-import { getAllUsers, loginUser, loadUser, logoutUser, deleteUser, updateUser } from "../services/users.service";
+import { getAllUsers, loginUser, loadUser, logoutUser, deleteUser, updateUser, registerUser } from "../services/users.service";
 
 const useUsers = () => {
     const getUsersQuery = () => {
         return useQuery("users", getAllUsers, { refetchOnWindowFocus: false })
+    }
+
+    const addUserMutation = () => {
+        return useMutation(registerUser)
     }
 
     const loginUserMutation = () => {
@@ -27,11 +31,12 @@ const useUsers = () => {
 
     return {
         getUsersQuery,
+        addUserMutation,
         loginUserMutation,
         loadUserMutation,
         logoutUserMutation,
         deleteUserMutation,
-        updateUserMutation,
+        updateUserMutation,        
     }
 }
 

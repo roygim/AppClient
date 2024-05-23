@@ -1,5 +1,5 @@
 import axios from "axios";
-import { UpdateUser, User } from "../types";
+import { AddUser, UpdateUser, User } from "../types";
 
 export const getAllUsers = async (): Promise<User[]> => {
     try {
@@ -12,6 +12,23 @@ export const getAllUsers = async (): Promise<User[]> => {
             throw new Error('error')
     } catch (err) {
         throw err
+    }
+}
+
+export const registerUser = async (user: AddUser) => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/register`
+
+        const response = await axios.post(url, user, { withCredentials: true });
+
+        if (response && response.data && response.data.success) {
+            return response.data;
+        }
+        else
+            throw new Error('error')
+    } catch (error) {
+        console.log('error - registerUser')
+        throw error
     }
 }
 
@@ -46,7 +63,7 @@ export const loadUser = async () => {
             return response.data;
         }
         else
-            throw new Error('error')
+            return null
     } catch (error) {
         throw error
     }
