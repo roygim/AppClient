@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ResponseObj, User } from "../types";
+import { UpdateUser, User } from "../types";
 
 export const getAllUsers = async (): Promise<User[]> => {
     try {
@@ -80,6 +80,23 @@ export const deleteUser = async () => {
         else
             throw new Error('error')
     } catch (error) {
+        throw error
+    }
+}
+
+export const updateUser = async (user: UpdateUser) => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/update`
+
+        const response = await axios.put(url, user, { withCredentials: true });
+
+        if (response && response.data) {
+            return response.data;
+        }
+        else
+            throw new Error('error')
+    } catch (error) {
+        console.log('error - updateUser')
         throw error
     }
 }

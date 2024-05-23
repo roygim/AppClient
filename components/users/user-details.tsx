@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
@@ -10,8 +10,7 @@ import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
-import { User } from '@/lib/types'
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { UpdateUser, User } from '@/lib/types'
 import DeleteAlert from '../alerts/delete-alert'
 
 interface UpdateInputs {
@@ -22,16 +21,16 @@ interface UpdateInputs {
 
 function UserDetails({ currentUser }: { currentUser: User | null }) {
     const router = useRouter()
-    const { removeUser } = useContext(UserContext) as UserContextValue
-    const { logoutUserMutation, deleteUserMutation } = useUsers()
+    const { saveUser, removeUser } = useContext(UserContext) as UserContextValue
+    const { logoutUserMutation, updateUserMutation } = useUsers()
 
-    const { 
-        mutateAsync: logoutUserAsync 
+    const {
+        mutateAsync: logoutUserAsync
     } = logoutUserMutation()
 
-    const { 
-        mutateAsync: deleteUserAsync 
-    } = deleteUserMutation()
+    const {
+        mutateAsync: updateUserAsync
+    } = updateUserMutation()
 
     const {
         handleSubmit,
@@ -49,11 +48,13 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
         const { firstname, lastname, email } = data
 
         try {
-            // const res = await loginUserAsync({ email, password })
-            // if (res && res.user) {
-            //     saveUser(res.user)
-            //     router.push(`/user`)
-            // }
+            const updateData = { firstname: firstname.trim(), lastname: lastname.trim(), email } as UpdateUser
+            
+            const res = await updateUserAsync(updateData)
+
+            if (res && res.success) {
+                saveUser(res.data)
+            }
         } catch (error: any) {
             console.log(error)
         }
@@ -62,19 +63,6 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
     const logoutUser = async () => {
         try {
             const res = await logoutUserAsync()
-
-            if (res && res.success) {
-                removeUser()
-                router.push(`/`)
-            }
-        } catch (error) {
-            alert('אירעה שגיאה')
-        }
-    }
-
-    const deleteUser = async () => {
-        try {
-            const res = await deleteUserAsync()
 
             if (res && res.success) {
                 removeUser()
@@ -99,7 +87,8 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                             name="firstname"
                             control={control}
                             rules={{
-                                required: "First name is required"
+                                required: "First name is required",
+                                validate: (value: string) => !!value.trim() || 'First name is required',
                             }}
                             render={({ field }) =>
                                 <div className='mb-[18px]'>
@@ -112,7 +101,8 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                             name="lastname"
                             control={control}
                             rules={{
-                                required: "Last name is required"
+                                required: "Last name is required",
+                                validate: (value: string) => !!value.trim() || 'Last name is required',
                             }}
                             render={({ field }) =>
                                 <div className='mb-[18px]'>
@@ -156,13 +146,6 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                                 Logout
                             </Button>
                             <DeleteAlert />
-                            {/* <Button
-                                variant="link"
-                                className='p-0'
-                                onClick={() => deleteUser()}
-                            >
-                                <RiDeleteBin6Line size={20} className='fill-red-700 dark:fill-primary'/>
-                            </Button> */}
                         </div>
                     </CardFooter>
                 </Card>

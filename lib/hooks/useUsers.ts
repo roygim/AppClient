@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "react-query";
-import { getAllUsers, loginUser, loadUser, logoutUser, deleteUser } from "../services/users.service";
+import { getAllUsers, loginUser, loadUser, logoutUser, deleteUser, updateUser } from "../services/users.service";
 
 const useUsers = () => {
     const getUsersQuery = () => {
@@ -21,12 +21,17 @@ const useUsers = () => {
         return useMutation(deleteUser)
     }
 
+    const updateUserMutation = () => {
+        return useMutation(updateUser)
+    }
+
     return {
         getUsersQuery,
         loginUserMutation,
         loadUserMutation,
         logoutUserMutation,
         deleteUserMutation,
+        updateUserMutation,
     }
 }
 
