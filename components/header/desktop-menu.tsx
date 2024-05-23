@@ -44,7 +44,9 @@ export default function DesktopMenu({ currentUser, logout }: { currentUser: User
                         </Link>
                         :
                         <div className='flex items-center gap-1'>
-                            <span className='text-sm font-semibold text-primary'>Hi, {currentUser.firstname}</span>
+                            <Link href="/user" className="text-sm font-semibold text-primary">
+                                Hi, {currentUser.firstname}
+                            </Link>
                             <Button
                                 variant="link"
                                 className='text-sm font-semibold pl-2'
