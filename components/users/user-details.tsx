@@ -12,6 +12,7 @@ import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
 import { User } from '@/lib/types'
 import { RiDeleteBin6Line } from "react-icons/ri";
+import DeleteAlert from '../alerts/delete-alert'
 
 interface UpdateInputs {
     firstname: string
@@ -139,7 +140,7 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                         />
                     </CardContent>
                     <CardFooter>
-                        <div className='flex justify-between w-full px-2'>
+                        <div className='flex justify-between items-center w-full px-2'>
                             <Button
                                 type="submit"
                                 variant="link"
@@ -154,13 +155,14 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                             >
                                 Logout
                             </Button>
-                            <Button
+                            <DeleteAlert />
+                            {/* <Button
                                 variant="link"
                                 className='p-0'
                                 onClick={() => deleteUser()}
                             >
                                 <RiDeleteBin6Line size={20} className='fill-red-700 dark:fill-primary'/>
-                            </Button>
+                            </Button> */}
                         </div>
                     </CardFooter>
                 </Card>
