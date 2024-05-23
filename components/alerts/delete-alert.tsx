@@ -22,17 +22,22 @@ import { IoIosClose } from "react-icons/io";
 function DeleteAlert() {
     const router = useRouter()
     const { removeUser } = useContext(UserContext) as UserContextValue
-    const { deleteUserMutation } = useUsers()
+    const { deleteUserMutation, logoutUserMutation } = useUsers()
 
     const {
         mutateAsync: deleteUserAsync
     } = deleteUserMutation()
+
+    const {
+        mutateAsync: logoutUserAsync
+    } = logoutUserMutation()
 
     const deleteUser = async () => {
         try {
             const res = await deleteUserAsync()
 
             if (res && res.success) {
+                logoutUserAsync()
                 removeUser()
                 router.push(`/`)
             }
