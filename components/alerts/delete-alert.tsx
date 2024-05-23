@@ -17,6 +17,7 @@ import { UserContextValue } from '@/lib/state/user/user.type'
 import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoIosClose } from "react-icons/io";
 
 function DeleteAlert() {
     const router = useRouter()
@@ -51,10 +52,20 @@ function DeleteAlert() {
                 </Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
-                <AlertDialogHeader>
-                    <AlertDialogTitle>Delete your account?</AlertDialogTitle>
+                <AlertDialogHeader className='flex flex-row items-center justify-between mb-6 mt-0 space-y-0'>
+                    <AlertDialogTitle>
+                        Delete your account?
+                    </AlertDialogTitle>
+                    <AlertDialogCancel asChild>
+                        <Button
+                            variant="link"
+                            className='border-none p-0 w-[32px] h-[32px] mt-0'
+                        >
+                            <IoIosClose size={24} />
+                        </Button>
+                    </AlertDialogCancel>
                 </AlertDialogHeader>
-                <AlertDialogFooter>
+                <AlertDialogFooter className='sm:flex sm:justify-center sm:gap-2'>
                     <AlertDialogCancel>
                         Cancel
                     </AlertDialogCancel>
