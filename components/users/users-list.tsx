@@ -86,12 +86,12 @@ function UsersList() {
             </Table>
             <div className='flex items-center justify-start mt-5 px-4 gap-4 w-full'>
                 <Link href="/register">
-                    <FiPlusCircle size={32} className='hover:text-amber-500' title='add user' />
+                    <FiPlusCircle size={32} className='text-link dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-500' title='add user' />
                 </Link>
                 <LuRefreshCcw
                     role='button'
                     size={32}
-                    className='text-xl cursor-pointer hover:text-amber-500'
+                    className='text-xl cursor-pointer  text-link dark:text-gray-400 hover:text-amber-500 dark:hover:text-amber-500'
                     title='refresh table'
                     onClick={handleRefreshUsers}
                 />
