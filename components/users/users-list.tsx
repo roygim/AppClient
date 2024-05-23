@@ -15,6 +15,8 @@ import {
 import Spinner from '../spinner';
 import { Button } from "@/components/ui/button"
 import { useRouter } from 'next/navigation'
+import { FiPlusCircle } from "react-icons/fi";
+import Link from 'next/link';
 
 function UsersList() {
     const router = useRouter()
@@ -82,11 +84,19 @@ function UsersList() {
                     }
                 </TableBody>
             </Table>
-            <LuRefreshCcw
-                role='button'
-                className='text-xl cursor-pointer hover:text-amber-500 mt-5'
-                onClick={handleRefreshUsers}
-            />
+            <div className='flex items-center justify-start mt-5 px-4 gap-4 w-full'>
+                <Link href="/register">
+                    <FiPlusCircle size={32} className='hover:text-amber-500' title='add user' />
+                </Link>
+                <LuRefreshCcw
+                    role='button'
+                    size={32}
+                    className='text-xl cursor-pointer hover:text-amber-500'
+                    title='refresh table'
+                    onClick={handleRefreshUsers}
+                />
+                <div></div>
+            </div>
         </div>
     )
 }
