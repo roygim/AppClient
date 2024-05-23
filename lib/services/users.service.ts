@@ -36,6 +36,22 @@ export const loginUser = async ({ email, password }: { email: string, password: 
     }
 }
 
+export const loadUser = async () => {
+    try {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/loaduser`
+
+        const response = await axios.post(url, null, { withCredentials: true });
+
+        if (response && response.data && response.data.success) {
+            return response.data;
+        }
+        else
+            throw new Error('error')
+    } catch (error) {
+        throw error
+    }
+}
+
 export const logoutUser = async () => {
     try {
         const url = `${process.env.NEXT_PUBLIC_API_URL}/logout`
@@ -52,13 +68,13 @@ export const logoutUser = async () => {
     }
 }
 
-export const loadUser = async () => {
+export const deleteUser = async () => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/loaduser`
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/delete`
 
-        const response = await axios.post(url, null, { withCredentials: true });
+        const response = await axios.delete(url, { withCredentials: true });
 
-        if (response && response.data && response.data.success) {
+        if (response && response.data) {
             return response.data;
         }
         else

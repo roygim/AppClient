@@ -11,6 +11,7 @@ import { Button } from '../ui/button'
 import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
 import { User } from '@/lib/types'
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 interface UpdateInputs {
     firstname: string
@@ -21,11 +22,15 @@ interface UpdateInputs {
 function UserDetails({ currentUser }: { currentUser: User | null }) {
     const router = useRouter()
     const { removeUser } = useContext(UserContext) as UserContextValue
-    const { logoutUserMutation } = useUsers()
+    const { logoutUserMutation, deleteUserMutation } = useUsers()
 
     const { 
         mutateAsync: logoutUserAsync 
     } = logoutUserMutation()
+
+    const { 
+        mutateAsync: deleteUserAsync 
+    } = deleteUserMutation()
 
     const {
         handleSubmit,
@@ -56,6 +61,19 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
     const logoutUser = async () => {
         try {
             const res = await logoutUserAsync()
+
+            if (res && res.success) {
+                removeUser()
+                router.push(`/`)
+            }
+        } catch (error) {
+            alert('אירעה שגיאה')
+        }
+    }
+
+    const deleteUser = async () => {
+        try {
+            const res = await deleteUserAsync()
 
             if (res && res.success) {
                 removeUser()
@@ -121,20 +139,27 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                         />
                     </CardContent>
                     <CardFooter>
-                        <div className='flex justify-between px-1 w-full'>
+                        <div className='flex justify-between w-full px-2'>
                             <Button
                                 type="submit"
                                 variant="link"
-                                className='text-link dark:text-primary underline pl-1'
+                                className='text-link dark:text-primary underline pl-0'
                             >
                                 Update
                             </Button>
                             <Button
                                 variant="link"
-                                className='text-link dark:text-primary underline pl-1'
+                                className='text-link dark:text-primary underline p-0'
                                 onClick={() => logoutUser()}
                             >
                                 Logout
+                            </Button>
+                            <Button
+                                variant="link"
+                                className='p-0'
+                                onClick={() => deleteUser()}
+                            >
+                                <RiDeleteBin6Line size={20} className='fill-red-700 dark:fill-primary'/>
                             </Button>
                         </div>
                     </CardFooter>
