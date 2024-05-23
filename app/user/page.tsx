@@ -1,46 +1,17 @@
 'use client'
 
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import UserDetails from '@/components/users/user-details'
 import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
-import useUsers from '@/lib/hooks/useUsers'
 import UserNotFound from '@/components/user-not-found'
 
 function page() {
-  const [mounted, setMounted] = useState(false)
-  const { user, isUserLogin, saveUser } = useContext(UserContext) as UserContextValue
-  const { loadUserMutation } = useUsers()
-  const [userNotExists, setUserNotExists] = useState(false)
+  const { user, isUserLogin } = useContext(UserContext) as UserContextValue
   
-  const {
-    mutateAsync: loadUserAsync 
-  } = loadUserMutation()
-
-  useEffect(() => {
-    if (!mounted && !isUserLogin) {
-      loadUser()
-    }
-    setMounted(true)
-  }, [isUserLogin])
-
-  const loadUser = async () => {
-    try {
-      const res = await loadUserAsync()
-      if (res && res.success) {
-        saveUser(res.data)
-      } else {
-        setUserNotExists(true)  
-      }
-    } catch (error) {
-      setUserNotExists(true)
-    }
-  }
-
   return (
     <div>
-      { user && <UserDetails currentUser={user} />}
-      { userNotExists && <UserNotFound />}
+      {isUserLogin ? <UserDetails currentUser={user} /> : <UserNotFound />}
     </div>
   )
 }

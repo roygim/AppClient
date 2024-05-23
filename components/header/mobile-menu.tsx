@@ -10,8 +10,9 @@ import closeIcon from "../../public/images/close.svg";
 import Link from 'next/link';
 import DarkModeMobile from '../dark-mode/dark-mode-mobile';
 import { MdMenu } from "react-icons/md";
+import { User } from '@/lib/types';
 
-export default function MobileMenu() {
+export default function MobileMenu({ currentUser, logout }: { currentUser: User | null, logout: () => void }) {
     return (
         <nav className='lg:hidden flex justify-between w-full px-5 py-6'>
             <Link href="/">
