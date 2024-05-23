@@ -8,6 +8,7 @@ import useUsers from '@/lib/hooks/useUsers'
 import UserNotFound from '@/components/user-not-found'
 
 function page() {
+  const [mounted, setMounted] = useState(false)
   const { user, isUserLogin, saveUser } = useContext(UserContext) as UserContextValue
   const { loadUserMutation } = useUsers()
   const [userNotExists, setUserNotExists] = useState(false)
@@ -17,9 +18,10 @@ function page() {
   } = loadUserMutation()
 
   useEffect(() => {
-    if (!isUserLogin) {
+    if (!mounted && !isUserLogin) {
       loadUser()
     }
+    setMounted(true)
   }, [isUserLogin])
 
   const loadUser = async () => {
