@@ -25,7 +25,7 @@ export default function DesktopMenu({ currentUser, logout }: { currentUser: User
                         </span>
                     </div>
                 </Link>
-                <Link href="/" className="text-sm font-semibold hover:text-amber-500">
+                <Link href="/products" className="text-sm font-semibold hover:text-amber-500">
                     Products
                 </Link>
                 <Link href="/" className="text-sm font-semibold hover:text-amber-500">

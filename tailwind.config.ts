@@ -61,7 +61,7 @@ const config = {
         },
         darkMode: {
           light: 'rgb(255 255 255 / var(--tw-bg-opacity))',
-          dark: 'rgb(13 13 17/var(--tw-bg-opacity))',
+          dark: 'rgb(156 163 175 / var(--tw-text-opacity))',
           card: 'rgb(31 41 55 / var(--tw-bg-opacity))'
         }
       },
