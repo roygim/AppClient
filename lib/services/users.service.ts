@@ -103,9 +103,15 @@ export const deleteUser = async () => {
 
 export const updateUser = async (user: UpdateUser) => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/update`
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/update/${user.userId}`
 
-        const response = await axios.put(url, user, { withCredentials: true });
+        const data = {
+            firstname: user.firstname,
+            lastname: user.lastname,
+            email: user.email
+        }
+
+        const response = await axios.put(url, data, { withCredentials: true });
 
         if (response && response.data) {
             return response.data;

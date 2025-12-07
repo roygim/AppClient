@@ -44,7 +44,7 @@ function UserDetails({ currentUser }: UserDetailsProps) {
         const { firstname, lastname, email } = data
 
         try {
-            const updateData = { firstname: firstname.trim(), lastname: lastname.trim(), email } as UpdateUser
+            const updateData: UpdateUser = { userId: currentUser.id, firstname: firstname.trim(), lastname: lastname.trim(), email }
 
             const res = await updateUserAsync(updateData)
 

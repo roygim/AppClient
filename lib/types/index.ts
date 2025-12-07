@@ -27,7 +27,8 @@ export interface AddUser {
 }
 
 export interface UpdateUser {
-    firstname?: string;
-    lastname?: string;
-    email?: string;
+    userId: number
+    firstname?: string
+    lastname?: string
+    email?: string
 }
