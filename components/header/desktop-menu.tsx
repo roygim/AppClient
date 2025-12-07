@@ -39,12 +39,11 @@ export default function DesktopMenu({ currentUser, logout }: { currentUser: User
                 <DarkMode />
                 {
                     !currentUser ?
-                        <div className="flex items-center gap-2">
-                            <Link href="/login" className="text-sm font-semibold">
+                        <div className="flex items-center divide-x divide-gray-300">
+                            <Link href="/login" className="text-sm font-semibold px-2">
                                 Log in
                             </Link>
-                            |
-                            <Link href="/register" className="text-sm font-semibold">
+                            <Link href="/register" className="text-sm font-semibold px-2">
                                 Sign up
                             </Link>
                         </div>
