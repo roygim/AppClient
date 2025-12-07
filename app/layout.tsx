@@ -3,6 +3,7 @@ import "./globals.css";
 import MyHeader from "@/components/header/myheader";
 import Providers from "../lib/providers";
 import MyFooter from "@/components/Footer";
+import { Toaster } from 'react-hot-toast'
 
 export const metadata: Metadata = {
   title: "App Client",
@@ -24,6 +25,7 @@ export default function RootLayout({
               {children}
             </main>
             {/* <MyFooter /> */}
+            <Toaster position="bottom-center" />
           </div>
         </Providers>
       </body>

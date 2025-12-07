@@ -9,6 +9,7 @@ import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
 import { UpdateUser, User } from '@/lib/types'
 import DeleteAlert from '../alerts/delete-alert'
+import toast from 'react-hot-toast'
 
 interface UpdateInputs {
     firstname: string
@@ -49,10 +50,12 @@ function UserDetails({ currentUser }: UserDetailsProps) {
             const res = await updateUserAsync(updateData)
 
             if (res && res.success) {
+                toast.success('user is update')
                 router.push('/')
             }
         } catch (error: any) {
             console.log(error)
+            toast.error('error')
         }
     }
 
