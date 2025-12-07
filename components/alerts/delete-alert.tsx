@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useContext } from 'react'
+import React from 'react'
 import {
     AlertDialog,
     AlertDialogAction,
@@ -12,33 +12,31 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from '../ui/button'
-import { UserContext } from '@/lib/state/user/user.context'
-import { UserContextValue } from '@/lib/state/user/user.type'
 import useUsers from '@/lib/hooks/useUsers'
 import { useRouter } from 'next/navigation'
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoIosClose } from "react-icons/io";
+import { User } from '@/lib/types'
+import toast from 'react-hot-toast'
 
-function DeleteAlert() {
+type DeleteAlertProps = {
+    currentUser: User
+}
+
+function DeleteAlert({ currentUser }: DeleteAlertProps) {
     const router = useRouter()
-    const { removeUser } = useContext(UserContext) as UserContextValue
-    const { deleteUserMutation, logoutUserMutation } = useUsers()
+    const { deleteUserMutation } = useUsers()
 
     const {
         mutateAsync: deleteUserAsync
     } = deleteUserMutation()
 
-    const {
-        mutateAsync: logoutUserAsync
-    } = logoutUserMutation()
-
     const deleteUser = async () => {
         try {
-            const res = await deleteUserAsync()
+            const res = await deleteUserAsync(currentUser.id)
 
             if (res && res.success) {
-                logoutUserAsync()
-                removeUser()
+                toast.success('user is deleted')
                 router.push(`/`)
             }
         } catch (error) {
@@ -59,7 +57,7 @@ function DeleteAlert() {
             <AlertDialogContent>
                 <AlertDialogHeader className='flex flex-row items-center justify-between mb-6 mt-0 space-y-0'>
                     <AlertDialogTitle>
-                        Delete your account?
+                        Delete user {`${currentUser.firstname} ${currentUser.lastname}`}?
                     </AlertDialogTitle>
                     <AlertDialogCancel asChild>
                         <Button

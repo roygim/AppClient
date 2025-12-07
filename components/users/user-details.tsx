@@ -50,7 +50,7 @@ function UserDetails({ currentUser }: UserDetailsProps) {
             const res = await updateUserAsync(updateData)
 
             if (res && res.success) {
-                toast.success('user is update')
+                toast.success('user is updated')
                 router.push('/')
             }
         } catch (error: any) {
@@ -124,7 +124,9 @@ function UserDetails({ currentUser }: UserDetailsProps) {
                             >
                                 Update
                             </Button>
-                            <DeleteAlert />
+                            <DeleteAlert
+                                currentUser={currentUser}
+                            />
                         </div>
                     </CardFooter>
                 </Card>

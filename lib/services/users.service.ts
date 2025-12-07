@@ -85,9 +85,9 @@ export const logoutUser = async () => {
     }
 }
 
-export const deleteUser = async () => {
+export const deleteUser = async (userId: number) => {
     try {
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/delete`
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/users/delete/${userId}`
 
         const response = await axios.delete(url, { withCredentials: true });
 
