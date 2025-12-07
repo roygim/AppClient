@@ -16,7 +16,8 @@ function page() {
 
     return (
         <div className='flex flex-col sm:flex-row'>
-            <div className='w-full p-4 sm:w-[280px] divide-y-2'>
+            products
+            {/* <div className='w-full p-4 sm:w-[280px] divide-y-2'>
                 <div className='flex flex-row justify-between items-center px-4 pb-2'>
                     <h2 className='font-bold'>Filters</h2>
                     <Button
@@ -40,14 +41,9 @@ function page() {
                     </div>
                 </div>
             </div>
-
-
-
-
-
             <div>
                 items
-            </div>
+            </div> */}
         </div>
     )
 }
