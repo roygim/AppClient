@@ -1,11 +1,8 @@
 'use client'
 
-import React, { useContext } from 'react'
-import { UserContext } from '@/lib/state/user/user.context'
-import { UserContextValue } from '@/lib/state/user/user.type'
+import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import Spinner from '../spinner'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import useUsers from '@/lib/hooks/useUsers'
@@ -19,14 +16,13 @@ interface UpdateInputs {
     email: string
 }
 
-function UserDetails({ currentUser }: { currentUser: User | null }) {
-    const router = useRouter()
-    const { saveUser, removeUser } = useContext(UserContext) as UserContextValue
-    const { logoutUserMutation, updateUserMutation } = useUsers()
+type UserDetailsProps = {
+    currentUser: User
+}
 
-    const {
-        mutateAsync: logoutUserAsync
-    } = logoutUserMutation()
+function UserDetails({ currentUser }: UserDetailsProps) {
+    const router = useRouter()
+    const { updateUserMutation } = useUsers()
 
     const {
         mutateAsync: updateUserAsync
@@ -38,9 +34,9 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
         formState: { errors }
     } = useForm<UpdateInputs>({
         defaultValues: {
-            firstname: currentUser?.firstname ?? '',
-            lastname: currentUser?.lastname ?? '',
-            email: currentUser?.email ?? '',
+            firstname: currentUser.firstname || '',
+            lastname: currentUser.lastname || '',
+            email: currentUser.email || '',
         },
     })
 
@@ -49,27 +45,14 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
 
         try {
             const updateData = { firstname: firstname.trim(), lastname: lastname.trim(), email } as UpdateUser
-            
+
             const res = await updateUserAsync(updateData)
 
             if (res && res.success) {
-                saveUser(res.data)
+                router.push('/')
             }
         } catch (error: any) {
             console.log(error)
-        }
-    }
-
-    const logoutUser = async () => {
-        try {
-            const res = await logoutUserAsync()
-
-            if (res && res.success) {
-                removeUser()
-                router.push(`/`)
-            }
-        } catch (error) {
-            alert('אירעה שגיאה')
         }
     }
 
@@ -137,13 +120,6 @@ function UserDetails({ currentUser }: { currentUser: User | null }) {
                                 className='text-link dark:text-primary underline pl-0'
                             >
                                 Update
-                            </Button>
-                            <Button
-                                variant="link"
-                                className='text-link dark:text-primary underline p-0'
-                                onClick={() => logoutUser()}
-                            >
-                                Logout
                             </Button>
                             <DeleteAlert />
                         </div>
