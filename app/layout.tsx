@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import MyHeader from "@/components/header/myheader";
-import Footer from "@/components/footer";
 import Providers from "../lib/providers";
+import MyFooter from "@/components/Footer";
 
 export const metadata: Metadata = {
   title: "App Client",
@@ -23,7 +23,7 @@ export default function RootLayout({
             <main className="min-h-screen mx-auto max-w-7xl px-5 lg:px-8 pt-[42px]">
               {children}
             </main>
-            <Footer />
+            {/* <MyFooter /> */}
           </div>
         </Providers>
       </body>

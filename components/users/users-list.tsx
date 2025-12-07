@@ -28,9 +28,9 @@ function UsersList() {
         queryClient.invalidateQueries('users')
     }
 
-    const handleUserClick = (email: string) => {
+    const handleUserClick = (id: number) => {
         try {
-            router.push(`/login?email=${email}`)
+            router.push(`/user/${id}`)
         } catch (error) {
             alert('אירעה שגיאה')
         }
@@ -70,7 +70,7 @@ function UsersList() {
                                         variant="link"
                                         className='text-link dark:text-primary underline pl-1'
                                         onClick={() => {
-                                            handleUserClick(row.email)
+                                            handleUserClick(row.id)
                                         }}
                                     >
                                         {row.id}
