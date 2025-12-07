@@ -57,7 +57,7 @@ function Login() {
             const res = await loginUserAsync({ email, password })
             if (res && res.user) {
                 saveUser(res.user)
-                router.push(`/user`)
+                router.push('/')
             } else {
                 setLoginProcess(false)
             }

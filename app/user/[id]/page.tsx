@@ -6,12 +6,17 @@ import { UserContext } from '@/lib/state/user/user.context'
 import { UserContextValue } from '@/lib/state/user/user.type'
 import UserNotFound from '@/components/user-not-found'
 import { useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 function page() {
   const params = useParams()
+  const router = useRouter()
   const { user, isUserLogin } = useContext(UserContext) as UserContextValue
-  
-  console.log('params.id', params.id);
+
+  if (!isUserLogin) {
+    router.push(`/login`)
+  }
+
   return (
     <div>
       {isUserLogin ? <UserDetails currentUser={user} /> : <UserNotFound />}

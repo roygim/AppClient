@@ -31,6 +31,7 @@ function UsersList() {
     const handleUserClick = (id: number) => {
         try {
             router.push(`/user/${id}`)
+            window.scrollTo({ top: 0, behavior: "smooth" });
         } catch (error) {
             alert('אירעה שגיאה')
         }
