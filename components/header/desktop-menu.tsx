@@ -39,9 +39,15 @@ export default function DesktopMenu({ currentUser, logout }: { currentUser: User
                 <DarkMode />
                 {
                     !currentUser ?
-                        <Link href="/login" className="text-sm font-semibold">
-                            Log in <span aria-hidden="true">&rarr;</span>
-                        </Link>
+                        <div className="flex items-center gap-2">
+                            <Link href="/login" className="text-sm font-semibold">
+                                Log in
+                            </Link>
+                            |
+                            <Link href="/register" className="text-sm font-semibold">
+                                Sign up
+                            </Link>
+                        </div>
                         :
                         <div className='flex items-center gap-1'>
                             <Link href="/user" className="text-sm font-semibold text-primary hover:underline">
